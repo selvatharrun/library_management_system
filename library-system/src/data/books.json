@@ -1,0 +1,52 @@
+[
+  {
+    "id": "b1",
+    "title": "Clean Code",
+    "author": "Robert C. Martin",
+    "isbn": "9780132350884",
+    "publishedYear": 2008,
+    "totalCopies": 5,
+    "availableCopies": 3,
+    "createdAt": "2026-02-22T10:00:00Z"
+  },
+  {
+    "id": "b2",
+    "title": "The Pragmatic Programmer",
+    "author": "Andrew Hunt",
+    "isbn": "9780201616224",
+    "publishedYear": 1999,
+    "totalCopies": 4,
+    "availableCopies": 4,
+    "createdAt": "2026-02-22T10:05:00Z"
+  },
+  {
+    "id": "b3",
+    "title": "Design Patterns",
+    "author": "Erich Gamma",
+    "isbn": "9780201633610",
+    "publishedYear": 1994,
+    "totalCopies": 3,
+    "availableCopies": 1,
+    "createdAt": "2026-02-22T10:10:00Z"
+  },
+  {
+    "id": "b4",
+    "title": "Deep Learning",
+    "author": "Ian Goodfellow",
+    "isbn": "9780262035613",
+    "publishedYear": 2016,
+    "totalCopies": 6,
+    "availableCopies": 6,
+    "createdAt": "2026-02-22T10:15:00Z"
+  },
+  {
+    "id": "b5",
+    "title": "Introduction to Algorithms",
+    "author": "Thomas H. Cormen",
+    "isbn": "9780262033848",
+    "publishedYear": 2009,
+    "totalCopies": 2,
+    "availableCopies": 0,
+    "createdAt": "2026-02-22T10:20:00Z"
+  }
+]

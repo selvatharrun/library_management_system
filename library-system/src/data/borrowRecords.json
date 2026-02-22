@@ -1,0 +1,11 @@
+[
+  {
+    "id": "br1",
+    "userId": "u2",
+    "bookId": "b1",
+    "borrowedAt": "2026-02-22T10:00:00Z",
+    "dueDate": "2026-03-01T10:00:00Z",
+    "returnedAt": null,
+    "status": "BORROWED"
+  }
+]
