@@ -4,9 +4,10 @@ export class OpenLibraryService {
 
   private static BASE_URL = "https://openlibrary.org";
 
-  private static headers = {
-    "User-Agent": "LibraryManagementSystem/1.0 (selvatharrun005@gmail.com)"
-  };
+private static headers = {
+  "User-Agent": "LMS/1.0 (selvatharrun005@gmail.com)",
+  "Accept": "application/json"
+};
 
   /* =========================
      SEARCH BOOKS
@@ -14,13 +15,19 @@ export class OpenLibraryService {
 
   static async searchBooks(query: string) {
 
-    const url =
-      `${this.BASE_URL}/search.json?q=${encodeURIComponent(query)}`;
-
+    const url = `${this.BASE_URL}/search.json?q=${encodeURIComponent(query)}`;
+    console.log(url);
     const res = await fetch(url, { headers: this.headers });
 
     if (!res.ok) {
       throw new Error("OpenLibrary search failed");
+    }
+
+    const contentType = res.headers.get("content-type");
+
+    if (!contentType || !contentType.includes("application/json")) {
+      console.error("OpenLibrary returned non-JSON:", await res.text());
+      return [];
     }
 
     const data = await res.json();
@@ -28,15 +35,11 @@ export class OpenLibraryService {
     return data.docs.slice(0, 10).map((doc: any) => ({
 
       title: doc.title ?? "Unknown",
-
       author: doc.author_name?.[0] ?? "Unknown",
-
       publishedYear: doc.first_publish_year ?? null,
-
       isbn: doc.isbn?.[0] ?? null,
-
+      //workKey or isbn is okay to pull things from openlibrary.
       workKey: doc.key ?? null,
-
       coverUrl: doc.cover_i
         ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`
         : null
@@ -75,11 +78,9 @@ export class OpenLibraryService {
       title: bookData.title ?? "Unknown",
       author: bookData.authors?.[0]?.name ?? "Unknown",
       publishedYear: this.extractYear(bookData.publish_date),
-      coverUrl:
-        bookData.cover?.large ??
-        bookData.cover?.medium ??
-        bookData.cover?.small ??
-        null,
+      coverUrl: bookData.cover_i
+        ? `https://covers.openlibrary.org/b/id/${bookData.cover_i}-L.jpg`
+        : null,
       summary
     };
   }
@@ -89,20 +90,23 @@ export class OpenLibraryService {
      GET WORK DETAILS
   ========================== */
 
+  //im using this in bookService, this is what is used to add books in books.json basically.
   static async getWorkDetails(workKey: string) {
-
     const url = `${this.BASE_URL}${workKey}.json`;
-
     const res = await fetch(url, { headers: this.headers });
 
-    if (!res.ok) return null;
-
+    if (!res.ok){ 
+        return null;
+    }
     const data = await res.json();
 
     return {
       title: data.title ?? "Unknown",
       description: this.normalizeDescription(data.description),
       subjects: data.subjects ?? [],
+      coverUrl: data.cover_id
+        ? `https://covers.openlibrary.org/b/id/${data.cover_id}-L.jpg`
+        : null
     };
   }
 
@@ -112,9 +116,7 @@ export class OpenLibraryService {
   ========================== */
 
   static async getWorkDescription(workKey: string) {
-
     const details = await this.getWorkDetails(workKey);
-
     return details?.description;
   }
 
@@ -126,9 +128,7 @@ export class OpenLibraryService {
   private static normalizeDescription(desc: any): string | undefined {
 
     if (!desc) return undefined;
-
     if (typeof desc === "string") return desc;
-
     if (typeof desc === "object" && desc.value) {
       return desc.value;
     }
@@ -137,10 +137,10 @@ export class OpenLibraryService {
   }
 
   private static extractYear(publishDate: string | undefined): number | null {
-
     if (!publishDate) return null;
 
-    const match = publishDate.match(/\d{4}/);
+    const match = publishDate.match(/\d{4}/);//regex literal we want only the 4 digits lol
     return match ? parseInt(match[0]) : null;
+
   }
 }

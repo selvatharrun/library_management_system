@@ -1,52 +1,152 @@
 [
   {
-    "id": "b1",
-    "title": "Clean Code",
-    "author": "Robert C. Martin",
-    "isbn": "9780132350884",
-    "publishedYear": 2008,
-    "totalCopies": 5,
-    "availableCopies": 3,
-    "createdAt": "2026-02-22T10:00:00Z"
+    "id": "bb0aea49-503c-4cf5-9a4d-9d0562808d78",
+    "title": "Harry Potter and the Philosopher's Stone",
+    "author": "Unknown",
+    "publishedYear": null,
+    "isbn": "N/A",
+    "createdAt": "2026-02-23T05:45:08.468Z",
+    "coverUrl": null,
+    "summary": " to begin!",
+    "category": "Fiction",
+    "locations": {
+      "Chennai": {
+        "total": 100,
+        "available": 100
+      },
+      "Bangalore": {
+        "total": 0,
+        "available": 0
+      },
+      "Delhi": {
+        "total": 0,
+        "available": 0
+      },
+      "Mumbai": {
+        "total": 100,
+        "available": 100
+      }
+    },
+    "workKey": "/works/OL82563W"
   },
   {
-    "id": "b2",
-    "title": "The Pragmatic Programmer",
-    "author": "Andrew Hunt",
-    "isbn": "9780201616224",
-    "publishedYear": 1999,
-    "totalCopies": 4,
-    "availableCopies": 4,
-    "createdAt": "2026-02-22T10:05:00Z"
+    "id": "cb28e92d-1aea-4dee-a367-a29c02c672aa",
+    "title": "The Lost Symbol",
+    "author": "Unknown",
+    "publishedYear": null,
+    "isbn": "N/A",
+    "workKey": "/works/OL14873315W",
+    "createdAt": "2026-02-23T11:34:41.208Z",
+    "coverUrl": null,
+    "summary": "The Lost Symbol is a 2009 novel written by American writer Dan Brown. It is a thriller set in Washington, D.C., after the events of The Da Vinci Code, and relies on Freemasonry for both its recurring theme and its major characters.\r\n\r\nReleased on September 15, 2009, it is the third Brown novel to involve the character of Harvard University symbologist Robert Langdon, following 2000's Angels & Demons and 2003's The Da Vinci Code.\r\n\r\n----------\r\nSee also:\r\n[Lost Symbol [2/2]](https://openlibrary.org/works/OL27717939W)",
+    "category": "Fiction",
+    "locations": {
+      "Chennai": {
+        "total": 0,
+        "available": 0
+      },
+      "Bangalore": {
+        "total": 24,
+        "available": 24
+      },
+      "Delhi": {
+        "total": 1,
+        "available": 1
+      },
+      "Mumbai": {
+        "total": 0,
+        "available": 0
+      }
+    }
   },
   {
-    "id": "b3",
-    "title": "Design Patterns",
-    "author": "Erich Gamma",
-    "isbn": "9780201633610",
-    "publishedYear": 1994,
-    "totalCopies": 3,
-    "availableCopies": 1,
-    "createdAt": "2026-02-22T10:10:00Z"
+    "id": "9bffdc3f-daa0-4bcb-a615-1f721fca9c0d",
+    "title": "Das Schloß",
+    "author": "Unknown",
+    "publishedYear": null,
+    "isbn": "N/A",
+    "workKey": "/works/OL498434W",
+    "createdAt": "2026-02-23T12:12:50.506Z",
+    "coverUrl": null,
+    "summary": "The Castle (original title: \"Das Schloß\") is the story of K., the unwanted Land Surveyor who is never to be admitted to the Castle nor accepted in the village, and yet cannot go home. As he encounters dualities of certainty and doubt, hope and fear, and reason and nonsense, K.'s struggles in the absurd, labyrinthine world where he finds himself seem to reveal an inexplicable truth about the nature of existence. Kafka began The Castle in 1922 and it was never finished, yet this, the last of his three great novels, draws fascinating conclusions that make it feel strangely complete.",
+    "category": "Fiction",
+    "locations": {
+      "Chennai": {
+        "total": 0,
+        "available": 0
+      },
+      "Bangalore": {
+        "total": 15,
+        "available": 15
+      },
+      "Delhi": {
+        "total": 0,
+        "available": 0
+      },
+      "Mumbai": {
+        "total": 0,
+        "available": 0
+      }
+    }
   },
   {
-    "id": "b4",
-    "title": "Deep Learning",
-    "author": "Ian Goodfellow",
-    "isbn": "9780262035613",
-    "publishedYear": 2016,
-    "totalCopies": 6,
-    "availableCopies": 6,
-    "createdAt": "2026-02-22T10:15:00Z"
+    "id": "3938d568-0f4d-4c95-8c3f-3528a862439c",
+    "title": "Die Traumdeutung",
+    "author": "Unknown",
+    "publishedYear": null,
+    "isbn": "N/A",
+    "workKey": "/works/OL1069300W",
+    "createdAt": "2026-02-23T12:58:28.284Z",
+    "coverUrl": "https://covers.openlibrary.org/b/id/undefined-L.jpg",
+    "summary": "Not in English",
+    "category": "Mathematics",
+    "locations": {
+      "Chennai": {
+        "total": 0,
+        "available": 0
+      },
+      "Bangalore": {
+        "total": 2,
+        "available": 2
+      },
+      "Delhi": {
+        "total": 0,
+        "available": 0
+      },
+      "Mumbai": {
+        "total": 0,
+        "available": 0
+      }
+    }
   },
   {
-    "id": "b5",
-    "title": "Introduction to Algorithms",
-    "author": "Thomas H. Cormen",
-    "isbn": "9780262033848",
-    "publishedYear": 2009,
-    "totalCopies": 2,
-    "availableCopies": 0,
-    "createdAt": "2026-02-22T10:20:00Z"
+    "id": "530d5ac4-e56c-437c-b6c1-24b9bedad9ef",
+    "title": "The Mystery of the Blue Train",
+    "author": "Unknown",
+    "publishedYear": null,
+    "isbn": "N/A",
+    "workKey": "/works/OL471603W",
+    "createdAt": "2026-02-23T13:06:40.931Z",
+    "coverUrl": null,
+    "summary": "Bound for the Riviera, detective Hercule Poirot has boarded Le Train Bleu, an elegant, leisurely means of travel, free of intrigue. Then he meets Ruth Kettering. The American heiress bailing out of a doomed marriage is en route to reconcile with her former lover. But by morning, her private affairs are made public when she is found murdered in her luxury compartment. The rumour of a strange man loitering in the victim's shadow is all Poirot has to go on. Until Mrs. Kettering's secret life begins to unfold...",
+    "category": "Fiction",
+    "locations": {
+      "Chennai": {
+        "total": 0,
+        "available": 0
+      },
+      "Bangalore": {
+        "total": 1,
+        "available": 1
+      },
+      "Delhi": {
+        "total": 0,
+        "available": 0
+      },
+      "Mumbai": {
+        "total": 0,
+        "available": 0
+      }
+    }
   }
 ]

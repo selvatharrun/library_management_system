@@ -21,12 +21,18 @@ export class BookRepository {
     return books.find(book => book.isbn === isbn);
   }
 
+  // 🔥 NEW: support OpenLibrary workKey lookup
+  static findByWorkKey(workKey: string): Book | undefined {
+    return books.find(book => book.workKey === workKey);
+  }
+
   static search(query: string): Book[] {
     const lower = query.toLowerCase();
 
     return books.filter(book =>
       book.title.toLowerCase().includes(lower) ||
-      book.author.toLowerCase().includes(lower)
+      book.author.toLowerCase().includes(lower) ||
+      (book.category?.toLowerCase().includes(lower) ?? false)
     );
   }
 

@@ -8,28 +8,39 @@ export interface User {
   createdAt: string;
 }
 
+export type Location = "Chennai" | "Bangalore" | "Delhi" | "Mumbai";
+
+export interface LocationStock {
+  total: number;
+  available: number;
+}
+
 export interface Book {
   id: string;
   title: string;
   author: string;
   isbn: string;
   publishedYear?: number | null;
-  totalCopies: number;
-  availableCopies: number;
-  createdAt: string; // ISO string
-
+  createdAt: string;
+  category?: string;
   coverUrl?: string | null;
   summary?: string | null;
+  workKey?: string;
+
+  locations: Record<Location, LocationStock>;
 }
 
-export type BorrowStatus = "BORROWED" | "RETURNED" | "OVERDUE";
+export type IssueStatus = "ISSUED" | "RETURNED";
 
-export interface BorrowRecord {
+export interface Issue {
   id: string;
   userId: string;
   bookId: string;
-  borrowedAt: string;
+  location: string;
+
+  issuedAt: string;
   dueDate: string;
-  returnedAt?: string | null;
-  status: BorrowStatus;
+
+  returnedAt: string | null;
+  status: IssueStatus;
 }

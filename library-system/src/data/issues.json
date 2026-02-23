@@ -1,0 +1,12 @@
+[
+  {
+    "id": "...",
+    "userId": "...",
+    "bookId": "...",
+    "location": "Chennai",
+    "issuedAt": "...",
+    "dueDate": "...",
+    "returnedAt": null,
+    "status": "ISSUED"
+  }
+]

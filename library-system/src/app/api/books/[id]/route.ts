@@ -1,25 +1,32 @@
-import { BookService } from "@/services/bookService";
+import { NextResponse } from "next/server";
+import { BookService } from "@/libs/services/bookService";
 
-export async function GET(
+export function GET(
   req: Request,
   { params }: { params: { id: string } }
 ) {
   try {
     const book = BookService.getById(params.id);
-    return Response.json(book);
+    return NextResponse.json(book);
   } catch (err: any) {
-    return Response.json({ error: err.message }, { status: 404 });
+    return NextResponse.json(
+      { error: err.message },
+      { status: 404 }
+    );
   }
 }
 
-export async function DELETE(
+export function DELETE(
   req: Request,
   { params }: { params: { id: string } }
 ) {
   try {
     BookService.deleteBook(params.id);
-    return Response.json({ success: true });
+    return NextResponse.json({ message: "Deleted" });
   } catch (err: any) {
-    return Response.json({ error: err.message }, { status: 404 });
+    return NextResponse.json(
+      { error: err.message },
+      { status: 404 }
+    );
   }
 }
