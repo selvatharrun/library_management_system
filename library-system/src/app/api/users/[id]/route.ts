@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 import { UserService } from "@/libs/services/userService";
 
-export function GET(
+export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = UserService.getUserById(params.id);
+    const { id } = await params;
+    const user = UserService.getUserById(id);
     return NextResponse.json(user);
   } catch (err: any) {
     return NextResponse.json(

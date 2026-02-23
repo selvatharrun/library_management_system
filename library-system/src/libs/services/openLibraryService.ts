@@ -78,9 +78,7 @@ private static headers = {
       title: bookData.title ?? "Unknown",
       author: bookData.authors?.[0]?.name ?? "Unknown",
       publishedYear: this.extractYear(bookData.publish_date),
-      coverUrl: bookData.cover_i
-        ? `https://covers.openlibrary.org/b/id/${bookData.cover_i}-L.jpg`
-        : null,
+      coverUrl: bookData.cover?.large ?? bookData.cover?.medium ?? null,
       summary
     };
   }
@@ -104,17 +102,14 @@ private static headers = {
       title: data.title ?? "Unknown",
       description: this.normalizeDescription(data.description),
       subjects: data.subjects ?? [],
-      coverUrl: data.cover_id
-        ? `https://covers.openlibrary.org/b/id/${data.cover_id}-L.jpg`
+      coverUrl: data.covers?.[0]
+        ? `https://covers.openlibrary.org/b/id/${data.covers[0]}-L.jpg`
         : null
     };
   }
 
 
-  /* =========================
-     GET DESCRIPTION ONLY
-  ========================== */
-
+  //just the description.
   static async getWorkDescription(workKey: string) {
     const details = await this.getWorkDetails(workKey);
     return details?.description;

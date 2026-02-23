@@ -33,5 +33,19 @@
     "email": "meera@student.com",
     "role": "STUDENT",
     "createdAt": "2026-02-10T16:20:00Z"
+  },
+  {
+    "id": "u1771874693955",
+    "name": "S Selva Tharrun",
+    "email": "selvatharrun005@gmail.com",
+    "role": "STUDENT",
+    "createdAt": "2026-02-23T19:24:53.955Z"
+  },
+  {
+    "id": "u1771874709210",
+    "name": "admin",
+    "email": "hihi@admin.com",
+    "role": "ADMIN",
+    "createdAt": "2026-02-23T19:25:09.210Z"
   }
 ]

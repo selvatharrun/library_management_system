@@ -28,6 +28,23 @@ export class UserService {
     return user;
   }
 
+  static createUser(name: string, email: string): User {
+    const existing = UserRepository.findByEmail(email);
+    if (existing) {
+      throw new Error("Email already registered");
+    }
+
+    const user: User = {
+      id: `u${Date.now()}`,
+      name,
+      email,
+      role: "STUDENT",
+      createdAt: new Date().toISOString(),
+    };
+
+    return UserRepository.create(user);
+  }
+
   /* -------------------------
      USER ISSUE DATA
   -------------------------- */
