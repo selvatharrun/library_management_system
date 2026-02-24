@@ -42,7 +42,8 @@ export async function DELETE(
     const { id } = await params;
     BookService.deleteBook(id);
     return NextResponse.json({ message: "Deleted" });
-  } catch (err: any) {
+  } 
+  catch (err: any) {
     return NextResponse.json(
       { error: err.message },
       { status: 404 }

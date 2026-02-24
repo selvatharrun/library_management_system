@@ -1,43 +1,50 @@
-import { useEffect, useState } from "react";
-import {Book} from "@/types/index"
-import styles from "@/app/admin/dashboard.module.css";
+"use client";
 
+import { useState } from "react";
+import { Book } from "@/types/index";
+import styles from "@/app/admin/dashboard.module.css";
 
 type LocationStock = { total: number; available: number };
 type Location = "Chennai" | "Bangalore" | "Delhi" | "Mumbai";
+
 const LOCATIONS: Location[] = ["Chennai", "Bangalore", "Delhi", "Mumbai"];
-const CATEGORIES = ["CS", "Fiction", "Mathematics", "AI"];
 
+type BookCardProps = {
+  book: Book;
+  onUpdated: (book: Book) => void;
+};
 
-/* -----------------------------------------------
-   BOOK CARD
------------------------------------------------ */
-function BookCard({ book, onUpdated }: { book: Book; onUpdated: (b: Book) => void }) {
-  
+const cloneLocations = (locations: Record<Location, LocationStock>) =>
+  JSON.parse(JSON.stringify(locations)) as Record<Location, LocationStock>;
+
+const getTotal = (locs: Record<Location, LocationStock>) =>
+  LOCATIONS.reduce((sum, l) => sum + locs[l].total, 0);
+
+const getTotalAvailable = (locs: Record<Location, LocationStock>) =>
+  LOCATIONS.reduce((sum, l) => sum + locs[l].available, 0);
+
+function BookCard({ book, onUpdated }: BookCardProps) {
   const [expanded, setExpanded] = useState(false);
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState<Record<Location, LocationStock>>(
-    () => JSON.parse(JSON.stringify(book.locations))
+    () => cloneLocations(book.locations)
   );
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const getTotal = (locs: Record<Location, LocationStock>) =>
-    LOCATIONS.reduce((sum, l) => sum + locs[l].total, 0);
-
-  const getTotalAvailable = (locs: Record<Location, LocationStock>) =>
-    LOCATIONS.reduce((sum, l) => sum + locs[l].available, 0);
-
   const handleSave = async () => {
     setSaving(true);
     setError(null);
+
     const res = await fetch(`/api/books/${book.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ locations: draft }),
     });
+
     const data = await res.json();
     setSaving(false);
+
     if (res.ok) {
       onUpdated(data);
       setEditing(false);
@@ -47,7 +54,7 @@ function BookCard({ book, onUpdated }: { book: Book; onUpdated: (b: Book) => voi
   };
 
   const handleCancel = () => {
-    setDraft(JSON.parse(JSON.stringify(book.locations)));
+    setDraft(cloneLocations(book.locations));
     setEditing(false);
     setError(null);
   };
@@ -101,53 +108,57 @@ function BookCard({ book, onUpdated }: { book: Book; onUpdated: (b: Book) => voi
               <span>Available</span>
             </div>
 
-            {LOCATIONS.map((loc) =>
-              editing ? (
-                <div key={loc} className={styles.locationRow}>
-                  <span>{loc}</span>
-                  <input
-                    type="number"
-                    min={0}
-                    className={styles.qtyInput}
-                    value={draft[loc].total}
-                    onChange={(e) => {
-                      const val = Math.max(0, Number(e.target.value));
-                      setDraft((prev) => ({
-                        ...prev,
-                        [loc]: {
-                          ...prev[loc],
-                          total: val,
-                          available: Math.min(prev[loc].available, val),
-                        },
-                      }));
-                    }}
-                  />
-                  <input
-                    type="number"
-                    min={0}
-                    max={draft[loc].total}
-                    className={styles.qtyInput}
-                    value={draft[loc].available}
-                    onChange={(e) => {
-                      const val = Math.min(
-                        Math.max(0, Number(e.target.value)),
-                        draft[loc].total
-                      );
-                      setDraft((prev) => ({
-                        ...prev,
-                        [loc]: { ...prev[loc], available: val },
-                      }));
-                    }}
-                  />
-                </div>
-              ) : (
+            {LOCATIONS.map((loc) => {
+              if (editing) {
+                return (
+                  <div key={loc} className={styles.locationRow}>
+                    <span>{loc}</span>
+                    <input
+                      type="number"
+                      min={0}
+                      className={styles.qtyInput}
+                      value={draft[loc].total}
+                      onChange={(e) => {
+                        const val = Math.max(0, Number(e.target.value));
+                        setDraft((prev) => ({
+                          ...prev,
+                          [loc]: {
+                            ...prev[loc],
+                            total: val,
+                            available: Math.min(prev[loc].available, val),
+                          },
+                        }));
+                      }}
+                    />
+                    <input
+                      type="number"
+                      min={0}
+                      max={draft[loc].total}
+                      className={styles.qtyInput}
+                      value={draft[loc].available}
+                      onChange={(e) => {
+                        const val = Math.min(
+                          Math.max(0, Number(e.target.value)),
+                          draft[loc].total
+                        );
+                        setDraft((prev) => ({
+                          ...prev,
+                          [loc]: { ...prev[loc], available: val },
+                        }));
+                      }}
+                    />
+                  </div>
+                );
+              }
+
+              return (
                 <div key={loc} className={styles.locationRow}>
                   <span>{loc}</span>
                   <span>{book.locations[loc].total}</span>
                   <span>{book.locations[loc].available}</span>
                 </div>
-              )
-            )}
+              );
+            })}
 
             {error && <div className={styles.errorMsg}>{error}</div>}
 

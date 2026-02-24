@@ -1,11 +1,12 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
-import {Book} from "@/types/index"
+import { useEffect, useState } from "react";
+import { Book } from "@/types/index";
 import styles from "./dashboard.module.css";
-import BookCard from "./components/bookCard";
+import BookCard from "@/app/components/admin/BookCard";
+import FilterBar from "@/app/components/FilterBar";
 import { getStoredUser } from "@/libs/auth";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 type LocationStock = { total: number; available: number };
 type Location = "Chennai" | "Bangalore" | "Delhi" | "Mumbai";
@@ -14,7 +15,9 @@ const CATEGORIES = ["CS", "Fiction", "Mathematics", "AI"];
 
 //main dashboard.
 export default function AdminDashboard() {
+  //state for all the books in the database.
   const [books, setBooks] = useState<Book[]>([]);
+  
   const [loading, setLoading] = useState(true);
 
   const [search, setSearch] = useState("");
@@ -30,6 +33,7 @@ export default function AdminDashboard() {
       router.replace("/");
       return;
     }
+    //the fetch method to get all the books from the database and set it to the state.
     fetch("/api/books")
     .then((r) => r.json())
     .then((data) => {
@@ -69,54 +73,25 @@ export default function AdminDashboard() {
     <div className={styles.container}>
       <h1 className={styles.title}>Library Inventory</h1>
 
-      <div className={styles.filterBar}>
-        <input
-          className={styles.searchInput}
-          type="text"
-          placeholder="Search by title or author…"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-
-        <select
-          className={styles.filterSelect}
-          value={filterLocation}
-          onChange={(e) => setFilterLocation(e.target.value as Location | "")}
-        >
-          <option value="">All Branches</option>
-          {LOCATIONS.map((l) => (
-            <option key={l} value={l}>{l}</option>
-          ))}
-        </select>
-
-        <select
-          className={styles.filterSelect}
-          value={filterCategory}
-          onChange={(e) => setFilterCategory(e.target.value)}
-        >
-          <option value="">All Categories</option>
-          {CATEGORIES.map((c) => (
-            <option key={c} value={c}>{c}</option>
-          ))}
-        </select>
-
-        {(search || filterLocation || filterCategory) && (
-          <button
-            className={styles.clearBtn}
-            onClick={() => {
-              setSearch("");
-              setFilterLocation("");
-              setFilterCategory("");
-            }}
-          >
-            Clear
-          </button>
-        )}
-
-        <span className={styles.resultCount}>
-          {filtered.length} book{filtered.length !== 1 ? "s" : ""}
-        </span>
-      </div>
+      <FilterBar
+        search={search}
+        onSearchChange={setSearch}
+        categoryOptions={CATEGORIES}
+        categoryValue={filterCategory}
+        onCategoryChange={setFilterCategory}
+        locationOptions={LOCATIONS}
+        locationValue={filterLocation}
+        onLocationChange={(value) => setFilterLocation(value as Location | "")}
+        onClear={() => {
+          setSearch("");
+          setFilterLocation("");
+          setFilterCategory("");
+        }}
+        resultLabel={`${filtered.length} book${filtered.length !== 1 ? "s" : ""}`}
+        searchPlaceholder="Search by title or author…"
+        categoryLabel="All Categories"
+        locationLabel="All Branches"
+      />
 
       {loading && <p>Loading…</p>}
 

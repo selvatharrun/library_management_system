@@ -12,16 +12,16 @@
     "category": "Fiction",
     "locations": {
       "Chennai": {
-        "total": 70,
-        "available": 70
+        "total": 0,
+        "available": 0
       },
       "Bangalore": {
-        "total": 96,
-        "available": 89
+        "total": 0,
+        "available": 0
       },
       "Delhi": {
-        "total": 10,
-        "available": 10
+        "total": 0,
+        "available": 0
       },
       "Mumbai": {
         "total": 0,
@@ -43,7 +43,7 @@
     "locations": {
       "Chennai": {
         "total": 10,
-        "available": 10
+        "available": 9
       },
       "Bangalore": {
         "total": 0,

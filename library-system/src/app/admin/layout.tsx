@@ -1,49 +1,22 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import SidebarLayout from "@/app/components/SidebarLayout";
 
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
-
-  const handleLogout = () => {
-    localStorage.removeItem("lms_user");
-    router.push("/");
-  };
-
   return (
-    <div className="flex min-h-screen">
-      {/* Sidebar */}
-      <aside className="w-64 bg-zinc-900 text-white p-6 flex flex-col">
-        <h2 className="text-xl font-bold mb-8">Library Admin</h2>
-
-        <nav className="flex flex-col gap-4 flex-1">
-          <a href="/admin" className="hover:text-gray-300">
-            Dashboard
-          </a>
-          <a href="/admin/search" className="hover:text-gray-300">
-            Search & Add
-          </a>
-          <a href="/admin/users" className="hover:text-gray-300">
-            Users
-          </a>
-        </nav>
-
-        <button
-          onClick={handleLogout}
-          className="mt-auto text-sm text-gray-400 hover:text-white text-left cursor-pointer"
-        >
-          Sign Out
-        </button>
-      </aside>
-
-      {/* Content */}
-      <main className="flex-1 p-10 bg-gray-50">
-        {children}
-      </main>
-    </div>
+    <SidebarLayout
+      title="Library Admin"
+      links={[
+        { href: "/admin", label: "Dashboard" },
+        { href: "/admin/search", label: "Search & Add" },
+        { href: "/admin/users", label: "Users" },
+      ]}
+    >
+      {children}
+    </SidebarLayout>
   );
 }

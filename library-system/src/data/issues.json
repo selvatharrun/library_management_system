@@ -108,5 +108,15 @@
     "dueDate": "2026-03-10T12:44:33.624Z",
     "returnedAt": "2026-02-24T12:44:42.185Z",
     "status": "RETURNED"
+  },
+  {
+    "id": "b1280b64-965e-49c8-bc2b-d6d1c175ed36",
+    "userId": "u1771958698106",
+    "bookId": "ed6ed3e7-28b4-4c21-acdd-607d28bca655",
+    "location": "Chennai",
+    "issuedAt": "2026-02-24T18:59:55.611Z",
+    "dueDate": "2026-03-10T18:59:55.611Z",
+    "returnedAt": null,
+    "status": "ISSUED"
   }
 ]

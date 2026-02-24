@@ -54,5 +54,12 @@
     "email": "roshan@gmail.com",
     "role": "USER",
     "createdAt": "2026-02-24T06:29:08.552Z"
+  },
+  {
+    "id": "u1771958698106",
+    "name": "selva",
+    "email": "selva@gmail.com",
+    "role": "USER",
+    "createdAt": "2026-02-24T18:44:58.106Z"
   }
 ]
