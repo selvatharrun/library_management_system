@@ -4,10 +4,7 @@ import { User } from "@/types";
 
 export class UserService {
 
-  /* -------------------------
-     BASIC USER OPERATIONS
-  -------------------------- */
-
+  //CRUD for users lol
   static getAllUsers(): User[] {
     return UserRepository.findAll();
   }
@@ -38,27 +35,22 @@ export class UserService {
       id: `u${Date.now()}`,
       name,
       email,
-      role: "STUDENT",
+      role: "USER",
       createdAt: new Date().toISOString(),
     };
 
     return UserRepository.create(user);
   }
 
-  /* -------------------------
-     USER ISSUE DATA
-  -------------------------- */
-
+  //returns only the ones that have "ISSUED" basically if book is borrowed.
   static getUserCurrentIssues(userId: string) {
     const user = this.getUserById(userId);
-
-    return IssueRepository.findByUserId(userId)
-      .filter(issue => issue.status === "ISSUED");
+    return IssueRepository.findByUserId(userId).filter(issue => issue.status === "ISSUED");
   }
 
+  //this is to fetch the history of all the borrowings of the user.
   static getUserHistory(userId: string) {
     const user = this.getUserById(userId);
-
     return IssueRepository.findByUserId(userId);
   }
 }

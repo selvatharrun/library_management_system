@@ -4,12 +4,16 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  //used to redirect after login/signup
   const router = useRouter();
+  
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,11 +36,13 @@ export default function LoginPage() {
       return;
     }
 
+    //this is where im fixing the key. refer api/auth/login for more on this.
     localStorage.setItem("lms_user", JSON.stringify(data));
 
     if (data.role === "ADMIN") {
       router.push("/admin");
-    } else {
+    } 
+    else {
       router.push("/user");
     }
   };
@@ -44,7 +50,7 @@ export default function LoginPage() {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim() || !name.trim()) return;
-
+    
     setLoading(true);
     setError(null);
 
@@ -147,6 +153,7 @@ export default function LoginPage() {
             opacity: loading ? 0.6 : 1,
           }}
         >
+          {/* if loading is true, then the user is done with sign up */}
           {loading
             ? (mode === "login" ? "Signing in…" : "Creating account…")
             : (mode === "login" ? "Sign In" : "Sign Up")}
@@ -154,7 +161,7 @@ export default function LoginPage() {
 
         <div style={{ textAlign: "center", fontSize: "13px", color: "#6b7280" }}>
           {mode === "login" ? (
-            <>Don&apos;t have an account?{" "}
+            <>No account?{" "}
               <button
                 type="button"
                 onClick={() => { setMode("signup"); setError(null); }}

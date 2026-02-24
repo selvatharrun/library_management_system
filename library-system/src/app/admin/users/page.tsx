@@ -1,30 +1,11 @@
+//"use client", this file would be treated as a Server Component and React hooks would crash.
 "use client";
 
 import { useEffect, useState } from "react";
 
-type User = {
-  id: string;
-  name: string;
-  email: string;
-  role: "ADMIN" | "STUDENT";
-  createdAt: string;
-};
+import type{User, Issue, Book} from "./types"
 
-type Issue = {
-  id: string;
-  bookId: string;
-  location: string;
-  issuedAt: string;
-  dueDate: string;
-  returnedAt: string | null;
-  status: "ISSUED" | "RETURNED";
-};
-
-type Book = {
-  id: string;
-  title: string;
-};
-
+//date extraction, rather inline we do this.
 function fmt(iso: string) {
   return new Date(iso).toLocaleDateString(undefined, {
     day: "numeric", month: "short", year: "numeric",
@@ -32,6 +13,7 @@ function fmt(iso: string) {
 }
 
 export default function AdminUsersPage() {
+  
   const [users, setUsers] = useState<User[]>([]);
   const [books, setBooks] = useState<Book[]>([]);
   const [search, setSearch] = useState("");
@@ -73,9 +55,9 @@ export default function AdminUsersPage() {
   const filtered = users.filter((u) => {
     const q = search.toLowerCase();
     const matchSearch =
-      !q ||
+      (!q ||
       u.name.toLowerCase().includes(q) ||
-      u.email.toLowerCase().includes(q);
+      u.email.toLowerCase().includes(q));
     const matchRole = !filterRole || u.role === filterRole;
     return matchSearch && matchRole;
   });
@@ -108,7 +90,7 @@ export default function AdminUsersPage() {
         >
           <option value="">All Roles</option>
           <option value="ADMIN">Admin</option>
-          <option value="STUDENT">Student</option>
+          <option value="USER">Student</option>
         </select>
         <span style={{ fontSize: 13, color: "#6b7280", marginLeft: "auto" }}>
           {filtered.length} user{filtered.length !== 1 ? "s" : ""}

@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState } from "react" ;
 import styles from "./search.module.css";
 
+//this cannot use the common type books coz, the results fetched dont need to have all the qualities as books.
+//i mean i could introduce ? and say return smthg | null in books.json but, this was fine at the time.
 type SearchResult = {
   title: string;
   author: string;
@@ -18,6 +20,8 @@ export default function SearchPage() {
 
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
+
+  //silly loading... using usestate
   const [loading, setLoading] = useState(false);
 
   const [selectedBook, setSelectedBook] = useState<SearchResult | null>(null);
@@ -25,10 +29,7 @@ export default function SearchPage() {
   const [category, setCategory] = useState("");
   const [location, setLocation] = useState<Location | "">("");
 
-  /* --------------------------
-     SEARCH OPEN LIBRARY
-  --------------------------- */
-
+  //surfing open library.
   const handleSearch = async () => {
     if (!query.trim()) return;
 
@@ -47,15 +48,13 @@ export default function SearchPage() {
     setLoading(false);
   };
 
-  /* --------------------------
-     UI
-  --------------------------- */
-
+//code for search and add.
   return (
     <div style={{ padding: "2rem" }}>
 
       <h1>Search Books (OpenLibrary)</h1>
 
+      {/*input over here. */}
       <div style={{ marginBottom: "1rem" }}>
         <input
           type="text"
@@ -66,6 +65,9 @@ export default function SearchPage() {
         <button onClick={handleSearch}>Search</button>
       </div>
 
+
+      {/*condtional rendering*/}
+      {/*the double ampersand means loading... will render if the variable loading is true.*/}
       {loading && <p>Loading...</p>}
 
       <div style={{ display: "grid", gap: "1rem" }}>

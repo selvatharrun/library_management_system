@@ -11,6 +11,7 @@ export async function GET(req: Request) {
     return NextResponse.json(books);
   }
 
+  //this is when u want to use openlibrary
   if (external === "true") {
     const results = await BookService.searchExternal(query);
     return NextResponse.json(results);

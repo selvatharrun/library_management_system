@@ -12,7 +12,7 @@
   padding: 2rem;
   border-radius: 8px;
   width: 350px;
-  color: black;
+  color: white;
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
@@ -21,7 +21,7 @@
 .modal input,
 .modal select {
   padding: 0.4rem;
-  background: #222;
+  background: black;
   color: white;
   border: 1px solid #444;
   border-radius: 4px;

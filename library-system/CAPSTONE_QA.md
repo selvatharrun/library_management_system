@@ -305,7 +305,7 @@ Without unique keys, React can't track which items changed, leading to bugs with
 **A:** Defined in `src/types/index.ts`:
 
 ```typescript
-export type Role = "ADMIN" | "STUDENT";          // Union type (literal)
+export type Role = "ADMIN" | "USER";          // Union type (literal)
 export type Location = "Chennai" | "Bangalore" | "Delhi" | "Mumbai";
 export type IssueStatus = "ISSUED" | "RETURNED";
 
@@ -341,7 +341,7 @@ export interface Issue { ... }
 **A:** A union type allows a value to be one of several types:
 
 ```typescript
-type Role = "ADMIN" | "STUDENT";           // String literal union
+type Role = "ADMIN" | "USER";           // String literal union
 type Location = "Chennai" | "Bangalore" | "Delhi" | "Mumbai";
 publishedYear?: number | null;              // number or null
 ```
@@ -513,7 +513,7 @@ The search itself worked because it used `doc.cover_i` which is correct for the 
 3. API calls `UserService.getUserByEmail(email)` → looks up in `users.json`
 4. If found, returns the full user object; if not, returns 401
 5. Frontend stores user in `localStorage` as `lms_user`
-6. Redirects to `/admin` (if ADMIN) or `/user` (if STUDENT)
+6. Redirects to `/admin` (if ADMIN) or `/user` (if USER)
 
 ---
 
@@ -523,7 +523,7 @@ The search itself worked because it used `doc.cover_i` which is correct for the 
 1. User clicks "Sign Up" toggle on the login page
 2. Enters name + email, submits
 3. Frontend POSTs to `/api/users` with `{ name, email }`
-4. `UserService.createUser()` checks for duplicate email, creates user with role `"STUDENT"`
+4. `UserService.createUser()` checks for duplicate email, creates user with role `"USER"`
 5. User is persisted to `users.json`
 6. Frontend auto-logs them in (stores in localStorage) and redirects to `/user`
 

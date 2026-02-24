@@ -42,7 +42,10 @@ export default function UserBooksPage() {
 
   useEffect(() => {
     const user = getStoredUser();
-    if (!user || user.role === "ADMIN") { router.replace("/"); return; }
+    if (!user || user.role === "ADMIN") {
+       router.replace("/"); 
+       return; 
+    }
     setUserId(user.id);
     fetch("/api/books")
       .then((r) => r.json())

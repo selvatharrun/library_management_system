@@ -10,35 +10,35 @@
     "id": "u2",
     "name": "Selva Tharrun",
     "email": "selva@student.com",
-    "role": "STUDENT",
+    "role": "USER",
     "createdAt": "2026-02-05T10:30:00Z"
   },
   {
     "id": "u3",
     "name": "Ananya Krishnan",
     "email": "ananya@student.com",
-    "role": "STUDENT",
+    "role": "USER",
     "createdAt": "2026-02-06T11:15:00Z"
   },
   {
     "id": "u4",
     "name": "Rahul Sharma",
     "email": "rahul@student.com",
-    "role": "STUDENT",
+    "role": "USER",
     "createdAt": "2026-02-08T14:45:00Z"
   },
   {
     "id": "u5",
     "name": "Meera Iyer",
     "email": "meera@student.com",
-    "role": "STUDENT",
+    "role": "USER",
     "createdAt": "2026-02-10T16:20:00Z"
   },
   {
     "id": "u1771874693955",
     "name": "S Selva Tharrun",
     "email": "selvatharrun005@gmail.com",
-    "role": "STUDENT",
+    "role": "USER",
     "createdAt": "2026-02-23T19:24:53.955Z"
   },
   {
@@ -47,5 +47,12 @@
     "email": "hihi@admin.com",
     "role": "ADMIN",
     "createdAt": "2026-02-23T19:25:09.210Z"
+  },
+  {
+    "id": "u1771914548552",
+    "name": "roshan",
+    "email": "roshan@gmail.com",
+    "role": "USER",
+    "createdAt": "2026-02-24T06:29:08.552Z"
   }
 ]

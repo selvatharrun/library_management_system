@@ -7,22 +7,29 @@ import styles from "./user.module.css";
 
 export default function UserHomePage() {
   const router = useRouter();
+
   const [activeCount, setActiveCount] = useState<number | null>(null);
   const [userName, setUserName] = useState("");
 
+  //okay useEffect basically performs a sideEffect based on the dependency array.
   useEffect(() => {
     const user = getStoredUser();
-    if (!user || user.role === "ADMIN") { router.replace("/"); return; }
+    if (!user || user.role === "ADMIN") { 
+      router.replace("/"); return; 
+    }
     setUserName(user.name);
     fetch(`/api/issues?userId=${user.id}`)
       .then((r) => r.json())
       .then((data: { status: string }[]) => {
         setActiveCount(data.filter((i) => i.status === "ISSUED").length);
       });
-  }, []);
+      
+  }, []); //and the dependency array is empty coz, we want this piece to run only once. (leaving it blank runs it all the time.)
+
 
   return (
     <div className={styles.container}>
+      
       <h1 className={styles.title}>Welcome back, {userName}</h1>
       <p style={{ color: "#6b7280", fontSize: "14px", marginBottom: "2rem" }}>
         {activeCount === null

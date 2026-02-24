@@ -6,7 +6,6 @@ import path from "path";
 const filePath = path.join(process.cwd(), "src/data/books.json");
 
 let books: Book[] = rawBooks as Book[];
-
 export class BookRepository {
 
   static findAll(): Book[] {
@@ -21,7 +20,7 @@ export class BookRepository {
     return books.find(book => book.isbn === isbn);
   }
 
-  // 🔥 NEW: support OpenLibrary workKey lookup
+  // NEW: support OpenLibrary workKey lookup
   static findByWorkKey(workKey: string): Book | undefined {
     return books.find(book => book.workKey === workKey);
   }
@@ -59,6 +58,7 @@ export class BookRepository {
     this.persist();
   }
 
+  //this is to write to my json files.
   private static persist() {
     fs.writeFileSync(filePath, JSON.stringify(books, null, 2));
   }
