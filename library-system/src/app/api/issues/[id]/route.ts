@@ -3,10 +3,11 @@ import { IssueService } from "@/libs/services/issueService";
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const updated = IssueService.returnBook(params.id);
+    const { id } = await params;
+    const updated = IssueService.returnBook(id);
     return NextResponse.json(updated);
   } catch (err: any) {
     return NextResponse.json(

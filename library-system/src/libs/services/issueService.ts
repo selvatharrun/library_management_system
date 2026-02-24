@@ -35,7 +35,7 @@ export class IssueService {
       throw new Error("User already borrowed this book");
     }
 
-    // 🔥 Reduce stock at specific location
+    // Reduce stock at specific location
     book.locations[location as keyof typeof book.locations].available -= 1;
     BookRepository.update(book);
 

@@ -35,6 +35,27 @@ export class BookService {
     BookRepository.delete(id);
   }
 
+  static updateLocations(id: string, locations: Book["locations"]): Book {
+    const book = BookRepository.findById(id);
+    if (!book) {
+      throw new Error("Book not found");
+    }
+
+    // Validate: available can't exceed total for any location
+    for (const loc of Object.keys(locations) as Array<keyof typeof locations>) {
+      const { total, available } = locations[loc];
+      if (available > total) {
+        throw new Error(`Available cannot exceed total for ${loc}`);
+      }
+      if (total < 0 || available < 0) {
+        throw new Error(`Quantities cannot be negative for ${loc}`);
+      }
+    }
+
+    book.locations = locations;
+    return BookRepository.update(book);
+  }
+
   /* -------------------------
      OPEN LIBRARY INTEGRATION
   -------------------------- */
@@ -81,33 +102,28 @@ static async importBook(data: {
     throw new Error("Book metadata not found");
   }
 
-  /* ------------------------------------
-     DUPLICATE DETECTION (ROBUST)
-  ------------------------------------- */
 
+//detect duplicate
   let existing: Book | undefined;
 
-  // 1️⃣ Prefer ISBN if valid
+  //Prefer ISBN if valid
   if (data.isbn && data.isbn !== "N/A") {
     existing = BookRepository.findByISBN(data.isbn);
   }
 
-  // 2️⃣ Then try workKey
+  //Then try workKey
   if (!existing && data.workKey) {
     existing = BookRepository.findByWorkKey(data.workKey);
   }
 
-  // 3️⃣ Final fallback: title match
+  //Final fallback: title match
   if (!existing) {
     existing = BookRepository.findAll().find(
       b => b.title.toLowerCase() === metadata.title.toLowerCase()
     );
   }
 
-  /* ------------------------------------
-     IF EXISTS → UPDATE STOCK
-  ------------------------------------- */
-
+  //update stock if book exists.
   if (existing) {
     existing.locations[data.location].total += data.copies;
     existing.locations[data.location].available += data.copies;
@@ -120,17 +136,14 @@ static async importBook(data: {
     return BookRepository.update(existing);
   }
 
-  /* ------------------------------------
-     CREATE NEW BOOK
-  ------------------------------------- */
-
+  //create a new book, if it doesnt exist
   const newBook: Book = {
     id: crypto.randomUUID(),
     title: metadata.title,
     author: metadata.author,
     publishedYear: metadata.publishedYear,
     isbn: data.isbn ?? "N/A",
-    workKey: data.workKey, // 🔥 store it now
+    workKey: data.workKey, 
     createdAt: new Date().toISOString(),
     coverUrl: metadata.coverUrl,
     summary: metadata.summary,
