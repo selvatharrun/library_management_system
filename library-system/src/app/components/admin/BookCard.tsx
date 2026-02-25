@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Book } from "@/types/index";
 import styles from "@/app/admin/dashboard.module.css";
+import Image from "next/image";
 
 type LocationStock = { total: number; available: number };
 type Location = "Chennai" | "Bangalore" | "Delhi" | "Mumbai";
@@ -26,16 +27,18 @@ const getTotalAvailable = (locs: Record<Location, LocationStock>) =>
 function BookCard({ book, onUpdated }: BookCardProps) {
   const [expanded, setExpanded] = useState(false);
   const [editing, setEditing] = useState(false);
+
   const [draft, setDraft] = useState<Record<Location, LocationStock>>(
     () => cloneLocations(book.locations)
   );
+
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleSave = async () => {
     setSaving(true);
     setError(null);
-
+    //api/books/[id] --> the data of a specific book.
     const res = await fetch(`/api/books/${book.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -62,7 +65,14 @@ function BookCard({ book, onUpdated }: BookCardProps) {
   return (
     <div className={styles.card}>
       {book.coverUrl ? (
-        <img src={book.coverUrl} alt={book.title} className={styles.cover} />
+        <Image
+          src={book.coverUrl}
+          alt={book.title}
+          className={styles.cover}
+          width={90}
+          height={130}
+          loading="lazy"
+        />
       ) : (
         <div className={styles.coverPlaceholder} />
       )}

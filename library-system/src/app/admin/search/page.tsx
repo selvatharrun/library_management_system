@@ -85,7 +85,8 @@ export default function SearchPage() {
               <img
                 src={book.coverUrl}
                 alt={book.title}
-                width={80}
+                  width={80}
+                  height={115}
               />
             )}
 

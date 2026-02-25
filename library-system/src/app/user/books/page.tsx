@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { getStoredUser } from "@/libs/auth";
 import FilterBar from "@/app/components/FilterBar";
 import styles from "../user.module.css";
+import Image from "next/image";
 
 const LOCATIONS = ["Chennai", "Bangalore", "Delhi", "Mumbai"] as const;
 type Location = typeof LOCATIONS[number];
@@ -28,7 +29,10 @@ function totalAvailable(book: Book) {
 export default function UserBooksPage() {
   const router = useRouter();
   const [userId, setUserId] = useState("");
+
+  //contains all the books.
   const [books, setBooks] = useState<Book[]>([]);
+
   const [loading, setLoading] = useState(true);
 
   const [search, setSearch] = useState("");
@@ -41,6 +45,8 @@ export default function UserBooksPage() {
   const [borrowing, setBorrowing] = useState(false);
   const [borrowError, setBorrowError] = useState<string | null>(null);
 
+
+  //some route protection again.
   useEffect(() => {
     const user = getStoredUser();
     if (!user || user.role === "ADMIN") {
@@ -88,7 +94,8 @@ export default function UserBooksPage() {
       );
       setBorrowBook(null);
       alert("Book borrowed! Due in 14 days.");
-    } else {
+    } 
+    else {
       setBorrowError(data.error ?? "Something went wrong");
     }
   };
@@ -138,7 +145,7 @@ export default function UserBooksPage() {
           return (
             <div key={book.id} className={styles.card}>
               {book.coverUrl
-                ? <img src={book.coverUrl} alt={book.title} className={styles.cover} />
+                ? <Image src={book.coverUrl} alt={book.title} className={styles.cover} width={120} height={160} />
                 : <div className={styles.coverPlaceholder} />}
               <div className={styles.info}>
                 <div className={styles.bookTitle}>{book.title}</div>

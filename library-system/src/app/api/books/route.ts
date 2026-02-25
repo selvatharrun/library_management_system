@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { BookService } from "@/libs/services/bookService";
 
+
+//this GET handles both listing all books and searching (local or external) based on query params.
+//its used in both admin and user side, but the external search is only for admin side to add new books.
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const query = searchParams.get("q");
@@ -11,7 +14,7 @@ export async function GET(req: Request) {
     return NextResponse.json(books);
   }
 
-  //this is when u want to use openlibrary
+  //only used in admin side.
   if (external === "true") {
     const results = await BookService.searchExternal(query);
     return NextResponse.json(results);

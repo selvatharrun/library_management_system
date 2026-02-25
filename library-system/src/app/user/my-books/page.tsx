@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getStoredUser } from "@/libs/auth";
 import styles from "../user.module.css";
+import Image from "next/image";
 
 const LOCATIONS = ["Chennai", "Bangalore", "Delhi", "Mumbai"] as const;
 type Location = typeof LOCATIONS[number];
@@ -111,7 +112,15 @@ export default function MyBooksPage() {
         {filtered.map((issue) => (
           <div key={issue.id} className={styles.issueCard}>
             {issue.book?.coverUrl
-              ? <img src={issue.book.coverUrl} alt={issue.book.title} className={styles.cover} />
+              ? (
+                <Image
+                  src={issue.book.coverUrl}
+                  alt={issue.book.title}
+                  className={styles.cover}
+                  width={80}
+                  height={115}
+                />
+              )
               : <div className={styles.coverPlaceholder} />}
             <div className={styles.issueInfo}>
               <div className={styles.bookTitle}>{issue.book?.title ?? "Unknown Book"}</div>
